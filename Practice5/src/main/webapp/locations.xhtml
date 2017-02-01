@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body>
+<h:form id="frmLocation">
+Log_Wid:<h:inputText value="#{locationController.location.log_wid}" />
+Parent:<h:inputText value="#{locationController.location.parent}" />
+Upt_Location:<h:inputText value="#{locationController.location.uptlocation}" />
+Name:<h:inputText value="#{locationController.location.name}" />
+Code:<h:inputText value="#{locationController.location.code}" />
+Description:<h:inputText value="#{locationController.location.description}" />
+
+
+		<h:commandButton action="#{locationController.save}" value="Save">
+			<f:ajax execute="frmLocation" render="frmLocation" />
+		</h:commandButton>
+
+		<h:commandButton rendered="#{locationController.editMode}"
+			action="#{locationController.save}" value="Cancel">
+			<f:ajax render="frmLocation"></f:ajax>
+		</h:commandButton>
+
+		<h:dataTable value="#{locationController.locations}" var="h" id="dtLocation">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+	 	#{h.id}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Log_Wid</f:facet>
+	 	#{h.log_wid}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Parent</f:facet>
+	 	#{h.parent}
+	</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Upt_Location</f:facet>
+		#{h.uptlocation}
+	</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+		#{h.name}
+	</h:column>
+	
+		<h:column>
+				<f:facet name="header">Code</f:facet>
+		#{h.code}
+	</h:column>
+	
+	
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+		#{h.description}
+	</h:column>
+	
+	
+		
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{locationController.delete(h)}"
+					value="Delete" onclick="return window.confirm ('Are you sure?')">
+					<f:ajax render="frmLocation:dtLocation" />
+				</h:commandButton>
+				<h:commandButton action="#{locationController.update(h)}"
+					value="Update">
+					<f:ajax render="frmLocation" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</body> 
+</html>
